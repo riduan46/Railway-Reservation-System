@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Railway_Reservation_System
 {
@@ -59,7 +60,7 @@ namespace Railway_Reservation_System
 
         private void TInsBTN_Click(object sender, EventArgs e)
         {
-            PNRList.Rows.Add(PTB.Text, PTB1.Text, PTB2.Text, PTB3.Text, PTB4.Text, PTB5.Text, DTP1.Text, RCB1.Text, PTB8.Text, PTB9.Text, PTB10.Text, PPB1.Image);
+
             try
             {
                 conn.Open();
@@ -154,6 +155,66 @@ namespace Railway_Reservation_System
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void TUpdBTN_Click(object sender, EventArgs e)
+        {
+            String Query = "update Passenger set UserName= '" + this.PTB1.Text + "', Password= '" + this.PTB2.Text + "' , FirstName= '" + this.PTB3.Text + "', LastName= '" + this.PTB4.Text + "', ContactNumber= '" + this.PTB5.Text + "', DoB= '" + this.DTP1.Text + "', Gender= '" + this.RCB1.Text + "', Email= '" + this.PTB8.Text + "' ,Address= '" + this.PTB9.Text + "', PostCode= '" + this.PTB10.Text + "'  Where PNRID= '" + this.PTB.Text + "';";
+            SqlCommand cmd = new SqlCommand(Query, conn);
+            SqlDataReader myReader;
+            try
+            {
+                conn.Open();
+                myReader = cmd.ExecuteReader();
+                MessageBox.Show("Updated");
+                while (myReader.Read())
+                {
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            conn.Close();
+        }
+
+        private void TSrhBTN_Click(object sender, EventArgs e)
+        {
+            conn.Open();
+            SqlCommand cmd2 = new SqlCommand("Select UserName,Password,FirstName,LastName,ContactNumber,DoB,Gender,Email,Address,PostCode,Picture from Passenger where PNRID=@idpar", conn);
+            cmd2.Parameters.AddWithValue("idpar", PNRList.Text.Trim());
+            SqlDataReader myReader;
+            myReader = cmd2.ExecuteReader();
+            if (myReader.Read())
+            {
+                PTB1.Text = myReader["UserName"].ToString();
+                PTB2.Text = myReader["PassWord"].ToString();
+                PTB3.Text = myReader["FirstName"].ToString();
+                PTB4.Text = myReader["LastName"].ToString();
+                PTB5.Text = myReader["ContactNumber"].ToString();
+                DTP1.Text = myReader["DoB"].ToString();
+                RCB1.Text = myReader["Gender"].ToString();
+                PTB8.Text = myReader["Email"].ToString();
+                PTB9.Text = myReader["Address"].ToString();
+                PTB10.Text = myReader["PostCode"].ToString();
+                
+            }
+            else
+            {
+                PTB1.Text = "";
+                PTB2.Text = "";
+                PTB3.Text = "";
+                PTB4.Text = "";
+                PTB5.Text = "";
+                DTP1.Text = "";
+                RCB1.Text = "";
+                PTB8.Text = "";
+                PTB9.Text = "";
+                PTB10.Text= "";
+
+                MessageBox.Show("No Data Found");
+            }
+            conn.Close();
         }
     }
 }

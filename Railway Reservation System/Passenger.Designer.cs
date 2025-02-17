@@ -358,6 +358,7 @@
             this.TUpdBTN.TabIndex = 14;
             this.TUpdBTN.Text = "Update";
             this.TUpdBTN.UseVisualStyleBackColor = true;
+            this.TUpdBTN.Click += new System.EventHandler(this.TUpdBTN_Click);
             // 
             // label2
             // 
@@ -457,6 +458,7 @@
             this.TSrhBTN.TabIndex = 14;
             this.TSrhBTN.Text = "Search";
             this.TSrhBTN.UseVisualStyleBackColor = true;
+            this.TSrhBTN.Click += new System.EventHandler(this.TSrhBTN_Click);
             // 
             // TInsBTN
             // 

@@ -40,14 +40,20 @@
             this.TUpdBTN = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TTB1 = new System.Windows.Forms.TextBox();
+            this.TTB10 = new System.Windows.Forms.TextBox();
+            this.TTB9 = new System.Windows.Forms.TextBox();
+            this.TTB8 = new System.Windows.Forms.TextBox();
             this.TTB7 = new System.Windows.Forms.TextBox();
             this.TTB6 = new System.Windows.Forms.TextBox();
             this.TTB5 = new System.Windows.Forms.TextBox();
             this.TTB4 = new System.Windows.Forms.TextBox();
             this.TTB3 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.TTB2 = new System.Windows.Forms.TextBox();
-            this.TTB1 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -57,12 +63,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.TTB10 = new System.Windows.Forms.TextBox();
-            this.TTB8 = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.TTB9 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -147,6 +147,7 @@
             this.TShwBTN.TabIndex = 14;
             this.TShwBTN.Text = "Show";
             this.TShwBTN.UseVisualStyleBackColor = true;
+            this.TShwBTN.Click += new System.EventHandler(this.TShwBTN_Click);
             // 
             // TDltBTN
             // 
@@ -203,6 +204,40 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Train Informations";
             // 
+            // TTB1
+            // 
+            this.TTB1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TTB1.Location = new System.Drawing.Point(147, 32);
+            this.TTB1.Name = "TTB1";
+            this.TTB1.Size = new System.Drawing.Size(165, 22);
+            this.TTB1.TabIndex = 10;
+            // 
+            // TTB10
+            // 
+            this.TTB10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TTB10.Location = new System.Drawing.Point(582, 118);
+            this.TTB10.Name = "TTB10";
+            this.TTB10.Size = new System.Drawing.Size(165, 22);
+            this.TTB10.TabIndex = 10;
+            // 
+            // TTB9
+            // 
+            this.TTB9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TTB9.Location = new System.Drawing.Point(392, 118);
+            this.TTB9.Name = "TTB9";
+            this.TTB9.Size = new System.Drawing.Size(165, 22);
+            this.TTB9.TabIndex = 10;
+            this.TTB9.TextChanged += new System.EventHandler(this.TTB9_TextChanged);
+            // 
+            // TTB8
+            // 
+            this.TTB8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TTB8.Location = new System.Drawing.Point(202, 118);
+            this.TTB8.Name = "TTB8";
+            this.TTB8.Size = new System.Drawing.Size(165, 22);
+            this.TTB8.TabIndex = 10;
+            this.TTB8.TextChanged += new System.EventHandler(this.TTB8_TextChanged);
+            // 
             // TTB7
             // 
             this.TTB7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -244,6 +279,16 @@
             this.TTB3.Size = new System.Drawing.Size(165, 22);
             this.TTB3.TabIndex = 10;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(582, 99);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 16);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Ticket Fare";
+            // 
             // TTB2
             // 
             this.TTB2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -252,13 +297,16 @@
             this.TTB2.Size = new System.Drawing.Size(165, 22);
             this.TTB2.TabIndex = 10;
             // 
-            // TTB1
+            // label8
             // 
-            this.TTB1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TTB1.Location = new System.Drawing.Point(147, 32);
-            this.TTB1.Name = "TTB1";
-            this.TTB1.Size = new System.Drawing.Size(165, 22);
-            this.TTB1.TabIndex = 10;
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(392, 99);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 16);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "Arrival Time";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label12
             // 
@@ -269,6 +317,17 @@
             this.label12.Size = new System.Drawing.Size(68, 16);
             this.label12.TabIndex = 9;
             this.label12.Text = "Train Type";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(202, 99);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(98, 16);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Departure Time";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label3
             // 
@@ -360,64 +419,6 @@
             this.label2.Size = new System.Drawing.Size(311, 25);
             this.label2.TabIndex = 9;
             this.label2.Text = "Railway Reservatoin System";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(582, 99);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(69, 16);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Ticket Fare";
-            // 
-            // TTB10
-            // 
-            this.TTB10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TTB10.Location = new System.Drawing.Point(582, 118);
-            this.TTB10.Name = "TTB10";
-            this.TTB10.Size = new System.Drawing.Size(165, 22);
-            this.TTB10.TabIndex = 10;
-            // 
-            // TTB8
-            // 
-            this.TTB8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TTB8.Location = new System.Drawing.Point(202, 118);
-            this.TTB8.Name = "TTB8";
-            this.TTB8.Size = new System.Drawing.Size(165, 22);
-            this.TTB8.TabIndex = 10;
-            this.TTB8.TextChanged += new System.EventHandler(this.TTB8_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(202, 99);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 16);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Departure Time";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Tai Le", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(392, 99);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(76, 16);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "Arrival Time";
-            this.label8.Click += new System.EventHandler(this.label8_Click);
-            // 
-            // TTB9
-            // 
-            this.TTB9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TTB9.Location = new System.Drawing.Point(392, 118);
-            this.TTB9.Name = "TTB9";
-            this.TTB9.Size = new System.Drawing.Size(165, 22);
-            this.TTB9.TabIndex = 10;
-            this.TTB9.TextChanged += new System.EventHandler(this.TTB9_TextChanged);
             // 
             // Trains
             // 

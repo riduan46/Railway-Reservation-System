@@ -73,5 +73,28 @@ namespace Railway_Reservation_System
             Passenger passenger = new Passenger();
             passenger.Show();
         }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TvBTN_Click(object sender, EventArgs e)
+        {
+            Travel travel = new Travel();
+            travel.Show();
+        }
+
+        private void ResBTN_Click(object sender, EventArgs e)
+        {
+            Reservation reservation = new Reservation();
+            reservation.Show();
+        }
+
+        private void CanBTN_Click(object sender, EventArgs e)
+        {
+            Payment payment = new Payment();
+            payment.Show();
+        }
     }
 }

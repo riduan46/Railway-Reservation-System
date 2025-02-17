@@ -100,6 +100,7 @@
             this.CanBTN.Size = new System.Drawing.Size(95, 95);
             this.CanBTN.TabIndex = 15;
             this.CanBTN.UseVisualStyleBackColor = false;
+            this.CanBTN.Click += new System.EventHandler(this.CanBTN_Click);
             // 
             // ResBTN
             // 
@@ -112,6 +113,7 @@
             this.ResBTN.Size = new System.Drawing.Size(95, 95);
             this.ResBTN.TabIndex = 15;
             this.ResBTN.UseVisualStyleBackColor = false;
+            this.ResBTN.Click += new System.EventHandler(this.ResBTN_Click);
             // 
             // TvBTN
             // 
@@ -124,6 +126,7 @@
             this.TvBTN.Size = new System.Drawing.Size(95, 95);
             this.TvBTN.TabIndex = 15;
             this.TvBTN.UseVisualStyleBackColor = false;
+            this.TvBTN.Click += new System.EventHandler(this.TvBTN_Click);
             // 
             // TBTN
             // 
@@ -166,11 +169,11 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(598, 194);
+            this.label6.Location = new System.Drawing.Point(623, 194);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(158, 29);
+            this.label6.Size = new System.Drawing.Size(113, 29);
             this.label6.TabIndex = 13;
-            this.label6.Text = "Cancellation";
+            this.label6.Text = "Payment";
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
@@ -225,6 +228,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "Main";
             this.Text = "Main";
+            this.Load += new System.EventHandler(this.Main_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
