@@ -9,10 +9,10 @@ CREATE TABLE TrainList (
   TrainName varchar(50) NOT NULL,
   RouteFrom varchar(50) NOT NULL,
   RouteTo varchar(30) NOT NULL,
-  DepartureTime time NOT NULL,
-  ArrivalTime time NOT NULL,
   TrainType varchar(50) NOT NULL,
   TotalSeats numeric (8,2) NOT NULL,
+  DepartureTime time NOT NULL,
+  ArrivalTime time NOT NULL,
   TicketFare numeric (8,2) NOT NULL,
 );
 CREATE TABLE Schedule (
@@ -29,16 +29,16 @@ CREATE TABLE Schedule (
 CREATE TABLE Passenger (
   PNRID INT Primary Key,
   UserName varchar(50) NOT NULL,
+  Password varchar(50) NOT NULL,
   FirstName varchar(50) NOT NULL,
   LastName varchar(50) NOT NULL,
   ContactNumber varchar(20) NOT NULL,
-  Gender varchar(30) NOT NULL,
   DoB varchar(30) NOT NULL,
+  Gender varchar(30) NOT NULL,
   Email varchar(50) NOT NULL,
-  Password varchar(50) NOT NULL,
-  Picture image,
   Address varchar(250) NOT NULL,
   PostCode INT NOT NULL,
+  Picture image,
 );
 CREATE TABLE Reservation (
   ResID INT Primary Key,
@@ -62,12 +62,12 @@ CREATE TABLE Payments (
     FOREIGN KEY (PNRID) REFERENCES Passenger
 );
 
-INSERT INTO TrainList (TrainID, TrainCode, TrainName, RouteFrom, RouteTo, DepartureTime, ArrivalTime, TrainType, TotalSeats, TicketFare)
+INSERT INTO TrainList (TrainID, TrainCode, TrainName, RouteFrom, RouteTo, TrainType, TotalSeats, DepartureTime, ArrivalTime, TicketFare)
 VALUES 
-(101, 'EKSP123', 'Suborno Express', 'Dhaka', 'Chattogram', '07:00:00', '13:00:00', 'Intercity', 800, 550.00),
-(102, 'EKSP456', 'Sundarban Express', 'Dhaka', 'Khulna', '08:30:00', '17:45:00', 'Intercity', 900, 600.00),
-(103, 'EKSP789', 'Parabat Express', 'Sylhet', 'Dhaka', '06:40:00', '13:30:00', 'Intercity', 750, 500.00),
-(104, 'EKSP101', 'Rangpur Express', 'Dhaka', 'Rangpur', '09:00:00', '18:30:00', 'Intercity', 850, 700.00);
+(101, 'EKSP123', 'Suborno Express', 'Dhaka', 'Chattogram', 'Intercity', 800, '07:00:00','13:00:00',  550.00),
+(102, 'EKSP456', 'Sundarban Express', 'Dhaka', 'Khulna', 'Intercity', 900, '08:30:00', '17:45:00', 600.00),
+(103, 'EKSP789', 'Parabat Express', 'Sylhet', 'Dhaka', 'Intercity', 750, '06:40:00', '13:30:00',  500.00),
+(104, 'EKSP101', 'Rangpur Express', 'Dhaka', 'Rangpur', 'Intercity', 850, '09:00:00', '18:30:00', 700.00);
 
 INSERT INTO Schedule (ScheduleID, ScheduleCode, TrainID, StationName, ScheduleType, DepartureTime, ArrivalTime, TrainType)
 VALUES 
@@ -77,12 +77,13 @@ VALUES
 (204, 'SCHD004', 101, 'Feni', 'Daily', '12:00:00', '12:05:00', 'Intercity'),
 (205, 'SCHD005', 104, 'Chattogram', 'Daily', '13:00:00', '13:00:00', 'Intercity');
 
-INSERT INTO Passenger (PNRID, UserName, FirstName, LastName, ContactNumber, Gender, DoB, Email, Password, Address, PostCode)
+INSERT INTO Passenger (PNRID, UserName, Password, FirstName, LastName, ContactNumber, DoB, Gender, Email, Address, PostCode) 
 VALUES 
-(301, 'rajib123', 'Rajib', 'Hasan', '01711234567', 'Male', '1995-05-10', 'rajib.hasan@gmail.com', 'pass123', 'Mirpur, Dhaka', 1216),
-(302, 'tahsin321', 'Tahsin', 'Rahman', '01987654321', 'Male', '1990-09-22', 'tahsin.rahman@yahoo.com', 'secure456', 'GEC, Chattogram', 4000),
-(303, 'afrin789', 'Afrin', 'Jahan', '01812340987', 'Female', '1998-02-14', 'afrin.jahan@outlook.com', 'afrin321', 'Banani, Dhaka', 1213),
-(304, 'mehedi456', 'Mehedi', 'Kamal', '01655667788', 'Male', '1988-11-30', 'mehedi.kamal@hotmail.com', 'mehpass987', 'Khulna Sadar, Khulna', 9100);
+(301, 'rajib123', 'pass123', 'Rajib', 'Hasan', '01711234567', '1995-05-10', 'Male', 'rajib.hasan@gmail.com', 'Mirpur, Dhaka', 1216),
+(302, 'tahsin321', 'secure456', 'Tahsin', 'Rahman', '01987654321', '1990-09-22', 'Male', 'tahsin.rahman@yahoo.com', 'GEC, Chattogram', 4000),
+(303, 'afrin789', 'afrin321', 'Afrin', 'Jahan', '01812340987', '1998-02-14', 'Female', 'afrin.jahan@outlook.com', 'Banani, Dhaka', 1213),
+(304, 'mehedi456', 'mehpass987', 'Mehedi', 'Kamal', '01655667788', '1988-11-30', 'Male', 'mehedi.kamal@hotmail.com', 'Khulna Sadar, Khulna', 9100);
+
 
 INSERT INTO Reservation (ResID, PNRID, TrainID, SourceStation, DestinationStation, TravelDate, ScheduleID)
 VALUES 

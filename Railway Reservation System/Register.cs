@@ -23,7 +23,7 @@ namespace Railway_Reservation_System
             InitializeComponent();
         }
         
-        SqlConnection conn = new SqlConnection(@"Data Source=RIDUAN-AZIZ\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-G5VD7K3\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
         DataTable dt = new DataTable();
 
         private void Register_Load(object sender, EventArgs e)

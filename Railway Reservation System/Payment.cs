@@ -16,6 +16,8 @@ namespace Railway_Reservation_System
         public Payment()
         {
             InitializeComponent();
+            LoadPNRIDs();
+            LoadResIDs();
         }
 
         private void Payment_Load(object sender, EventArgs e)
@@ -24,20 +26,19 @@ namespace Railway_Reservation_System
         }
         DataTable dt = new DataTable("Table");
         int index;
-        SqlConnection conn = new SqlConnection(@"Data Source=RIDUAN-AZIZ\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-G5VD7K3\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
+       
+
+
         private void TInsBTN_Click(object sender, EventArgs e)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("INSERT INTO Payment(PaymentID,ResID,PNRID,Amount,PaymentMethod) Values ('" + TBTN1.Text + "','" + TBTN2.Text + "', '" + TBTN3.Text + "','" + TBTN4.Text + "', '" + TBTN5.Text + "'", conn);
+                SqlCommand cmd = new SqlCommand("INSERT INTO Payments(PaymentID,ResID,PNRID,Amount,PaymentMethod) Values ('" + TBTN1.Text + "','" + TBTN2.Text + "', '" + TBTN3.Text + "','" + TBTN4.Text + "', '" + TBTN5.Text + "')", conn);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("Insertion Completed");
-                TBTN1.Text = "";
-                TBTN2.Text = "";
-                TBTN3.Text = "";
-                TBTN4.Text = "";
-                TBTN5.Text = "";
+                
 
             }
             catch (Exception ex)
@@ -53,7 +54,7 @@ namespace Railway_Reservation_System
             {
                 PayList.Rows.RemoveAt(PayList.SelectedRows[0].Index);
             }
-            String Query = "delete from Payment where PaymentID= '" + this.TBTN1.Text + "';";
+            String Query = "delete from Payments where PaymentID= '" + this.TBTN1.Text + "';";
             SqlCommand cmd = new SqlCommand(Query, conn);
             SqlDataReader myReader;
             try
@@ -72,7 +73,7 @@ namespace Railway_Reservation_System
             conn.Close();
         }
 
-        private void SchList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void PayList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             index = e.RowIndex;
             DataGridViewRow row = PayList.Rows[index];
@@ -85,7 +86,7 @@ namespace Railway_Reservation_System
 
         private void TUpdBTN_Click(object sender, EventArgs e)
         {
-            String Query = "update Payment set PaymentID= '" + this.TBTN1.Text + "', ResID= '" + this.TBTN2.Text + "' , PNRID= '" + this.TBTN3.Text + "', Amount= '" + this.TBTN4.Text + "', PaymentMethod= '" + this.TBTN5.Text + "';";
+            String Query = "update Payments set ResID= '" + this.TBTN2.Text + "' , PNRID= '" + this.TBTN3.Text + "', Amount= '" + this.TBTN4.Text + "', PaymentMethod= '" + this.TBTN5.Text + "';";
             SqlCommand cmd = new SqlCommand(Query, conn);
             SqlDataReader myReader;
             try
@@ -110,7 +111,7 @@ namespace Railway_Reservation_System
             {
                 dt.Rows.Clear();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("select * from Payment", conn);
+                SqlCommand cmd = new SqlCommand("select * from Payments", conn);
                 cmd.ExecuteNonQuery();
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 PayList.DataSource = null;
@@ -127,36 +128,90 @@ namespace Railway_Reservation_System
         private void TSrhBTN_Click(object sender, EventArgs e)
         {
             conn.Open();
-            SqlCommand cmd2 = new SqlCommand("Select PaymentID,ResID,PNRID,Amount,PaymentMethod from Payment where PaymentID=@idpar", conn);
+            SqlCommand cmd2 = new SqlCommand("Select PaymentID,ResID,PNRID,Amount,PaymentMethod from Payments where PaymentID=@idpar", conn);
             cmd2.Parameters.AddWithValue("idpar", PayList.Text.Trim());
             SqlDataReader myReader;
             myReader = cmd2.ExecuteReader();
             if (myReader.Read())
             {
+
                 
-                TBTN1.Text = myReader["PaymentID"].ToString();
                 TBTN2.Text = myReader["ResID"].ToString();
                 TBTN3.Text = myReader["PNRID"].ToString();
                 TBTN4.Text = myReader["Amount"].ToString();
                 TBTN5.Text = myReader["PaymentMethod"].ToString();
-                
+
 
 
 
             }
             else
             {
-                TBTN1.Text = "";
+                
                 TBTN2.Text = "";
                 TBTN3.Text = "";
                 TBTN4.Text = "";
                 TBTN5.Text = "";
-                
+
 
 
                 MessageBox.Show("No Data Found");
             }
             conn.Close();
+        }
+        private void LoadPNRIDs()
+        {
+            try
+            {
+                conn.Open();
+                string query = "SELECT PNRID FROM Passenger";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                TBTN3.Items.Clear(); 
+
+                while (reader.Read())
+                {
+                    TBTN3.Items.Add(reader["PNRID"].ToString());
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+        private void LoadResIDs()
+        {
+            try
+            {
+                conn.Open();
+                string query = "SELECT ResID FROM Reservation";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                TBTN2.Items.Clear(); 
+
+                while (reader.Read())
+                {
+                    TBTN2.Items.Add(reader["ResID"].ToString());
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
     }
 }

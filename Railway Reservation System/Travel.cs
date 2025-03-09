@@ -20,7 +20,7 @@ namespace Railway_Reservation_System
         }
         DataTable dt = new DataTable("Table");
         int index;
-        SqlConnection conn = new SqlConnection(@"Data Source=RIDUAN-AZIZ\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-G5VD7K3\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
         private void TInsBTN_Click(object sender, EventArgs e)
         {
             try
@@ -119,43 +119,68 @@ namespace Railway_Reservation_System
 
         private void TSrhBTN_Click(object sender, EventArgs e)
         {
-            conn.Open();
-            SqlCommand cmd2 = new SqlCommand("Select ScheduleID,ScheduleCode,TrainID,StationName,ScheduleType,DepartureTime,ArrivalTime,TrainType from Schedule where ScheduleID=@idpar", conn);
-            cmd2.Parameters.AddWithValue("idpar", SchList.Text.Trim());
-            SqlDataReader myReader;
-            myReader = cmd2.ExecuteReader();
-            if (myReader.Read())
+            try
             {
-                TBTN1.Text = myReader["ScheduleID"].ToString();
-                TBTN2.Text = myReader["ScheduleCode"].ToString();
-                TBTN3.Text = myReader["TrainID"].ToString();
-                TBTN4.Text = myReader["StationName"].ToString();
-                TBTN5.Text = myReader["ScheduleType"].ToString();
-                TBTN6.Text = myReader["DepartureTime"].ToString();
-                TBTN7.Text = myReader["ArrivalTime"].ToString();
-                TBTN8.Text = myReader["TrainType"].ToString();
+               
+                conn.Open();
+
+                SqlCommand cmd2 = new SqlCommand("SELECT ScheduleID, ScheduleCode, TrainID, StationName, ScheduleType, DepartureTime, ArrivalTime, TrainType FROM Schedule WHERE ScheduleID = @idpar", conn);
+                cmd2.Parameters.AddWithValue("@idpar", TBTN1.Text.Trim());
+
+               
+                SqlDataReader myReader = cmd2.ExecuteReader();
+
+               
+                if (myReader.Read())
+                {
+                    
+                    
+                    TBTN2.Text = myReader["ScheduleCode"].ToString();
+                    TBTN3.Text = myReader["TrainID"].ToString();
+                    TBTN4.Text = myReader["StationName"].ToString();
+                    TBTN5.Text = myReader["ScheduleType"].ToString();
+                    TBTN6.Text = myReader["DepartureTime"].ToString();
+                    TBTN7.Text = myReader["ArrivalTime"].ToString();
+                    TBTN8.Text = myReader["TrainType"].ToString();
+                }
+                else
+                {
+                    
+                    TBTN1.Text = "";
+                    TBTN2.Text = "";
+                    TBTN3.Text = "";
+                    TBTN4.Text = "";
+                    TBTN5.Text = "";
+                    TBTN6.Text = "";
+                    TBTN7.Text = "";
+                    TBTN8.Text = "";
+
+                    
+                    MessageBox.Show("No Data Found");
+                }
+
                 
-
+                myReader.Close();
             }
-            else
+            catch (Exception ex)
             {
-                TBTN1.Text = "";
-                TBTN2.Text = "";
-                TBTN3.Text = "";
-                TBTN4.Text = "";
-                TBTN5.Text = "";
-                TBTN6.Text = "";
-                TBTN7.Text = "";
-                TBTN8.Text = "";
-
-                MessageBox.Show("No Data Found");
+                
+                MessageBox.Show("Error: " + ex.Message);
             }
-            conn.Close();
+            finally
+            {
+                
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
         }
 
         private void Travel_Load(object sender, EventArgs e)
         {
-
+            SchList.DataSource = dt;
         }
     }
     

@@ -23,7 +23,7 @@ namespace Railway_Reservation_System
         {
             InitializeComponent();
         }
-        SqlConnection conn = new SqlConnection(@"Data Source=RIDUAN-AZIZ\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
+        SqlConnection conn = new SqlConnection(@"Data Source=DESKTOP-G5VD7K3\SQLEXPRESS;Initial Catalog=Railway_Reservation_System;Integrated Security=True");
 
 
 
@@ -126,7 +126,11 @@ namespace Railway_Reservation_System
             PTB3.Text = row.Cells[3].Value.ToString();
             PTB4.Text = row.Cells[4].Value.ToString();
             PTB5.Text = row.Cells[5].Value.ToString();
-            DTP1.Text = row.Cells[6].Value.ToString();
+            DateTime dateValue;
+            if (DateTime.TryParse(row.Cells[6].Value.ToString(), out dateValue))
+            {
+                DTP1.Value = dateValue;
+            }
             RCB1.Text = row.Cells[7].Value.ToString();
             PTB8.Text = row.Cells[8].Value.ToString();
             PTB9.Text = row.Cells[9].Value.ToString();
@@ -135,6 +139,13 @@ namespace Railway_Reservation_System
             {
                 PPB1.Image = image;
             }
+            PNRList.DataError += PNRList_DataError_1;
+
+        }
+        private void PNRList_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            MessageBox.Show("An error occurred while displaying data: " + e.Exception.Message, "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            e.ThrowException = false; 
         }
 
         private void TShwBTN_Click(object sender, EventArgs e)
@@ -180,41 +191,89 @@ namespace Railway_Reservation_System
 
         private void TSrhBTN_Click(object sender, EventArgs e)
         {
-            conn.Open();
-            SqlCommand cmd2 = new SqlCommand("Select UserName,Password,FirstName,LastName,ContactNumber,DoB,Gender,Email,Address,PostCode,Picture from Passenger where PNRID=@idpar", conn);
-            cmd2.Parameters.AddWithValue("idpar", PNRList.Text.Trim());
-            SqlDataReader myReader;
-            myReader = cmd2.ExecuteReader();
-            if (myReader.Read())
+            try
             {
-                PTB1.Text = myReader["UserName"].ToString();
-                PTB2.Text = myReader["PassWord"].ToString();
-                PTB3.Text = myReader["FirstName"].ToString();
-                PTB4.Text = myReader["LastName"].ToString();
-                PTB5.Text = myReader["ContactNumber"].ToString();
-                DTP1.Text = myReader["DoB"].ToString();
-                RCB1.Text = myReader["Gender"].ToString();
-                PTB8.Text = myReader["Email"].ToString();
-                PTB9.Text = myReader["Address"].ToString();
-                PTB10.Text = myReader["PostCode"].ToString();
-                
-            }
-            else
-            {
-                PTB1.Text = "";
-                PTB2.Text = "";
-                PTB3.Text = "";
-                PTB4.Text = "";
-                PTB5.Text = "";
-                DTP1.Text = "";
-                RCB1.Text = "";
-                PTB8.Text = "";
-                PTB9.Text = "";
-                PTB10.Text= "";
+                conn.Open();
+                SqlCommand cmd2 = new SqlCommand("SELECT UserName, Password, FirstName, LastName, ContactNumber, DoB, Gender, Email, Address, PostCode, Picture FROM Passenger WHERE PNRID = @idpar", conn);
+                cmd2.Parameters.AddWithValue("@idpar", PTB.Text.Trim()); 
 
-                MessageBox.Show("No Data Found");
+                SqlDataReader myReader = cmd2.ExecuteReader();
+
+                if (myReader.Read()) 
+                {
+                    PTB1.Text = myReader["UserName"].ToString();
+                    PTB2.Text = myReader["Password"].ToString();
+                    PTB3.Text = myReader["FirstName"].ToString();
+                    PTB4.Text = myReader["LastName"].ToString();
+                    PTB5.Text = myReader["ContactNumber"].ToString();
+
+                    
+                    if (myReader["DoB"] != DBNull.Value)
+                        DTP1.Value = Convert.ToDateTime(myReader["DoB"]);
+                    else
+                        DTP1.Value = DateTime.Now; 
+
+                    
+                    RCB1.SelectedItem = myReader["Gender"].ToString();
+
+                    PTB8.Text = myReader["Email"].ToString();
+                    PTB9.Text = myReader["Address"].ToString();
+                    PTB10.Text = myReader["PostCode"].ToString();
+
+                    
+                    if (myReader["Picture"] != DBNull.Value)
+                    {
+                        byte[] imgData = (byte[])myReader["Picture"];
+                        using (MemoryStream ms = new MemoryStream(imgData))
+                        {
+                            pictureBox1.Image = Image.FromStream(ms);
+                        }
+                    }
+                    else
+                    {
+                        pictureBox1.Image = null; 
+                    }
+                }
+                else 
+                {
+                    
+                    PTB1.Text = "";
+                    PTB2.Text = "";
+                    PTB3.Text = "";
+                    PTB4.Text = "";
+                    PTB5.Text = "";
+                    DTP1.Value = DateTime.Now; 
+                    RCB1.SelectedIndex = -1; 
+                    PTB8.Text = "";
+                    PTB9.Text = "";
+                    PTB10.Text = "";
+                    pictureBox1.Image = null; 
+
+                    MessageBox.Show("No Data Found for the given PNR ID.", "Search Result", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                myReader.Close(); 
             }
-            conn.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                conn.Close(); 
+            }
+
+
+
+
+        }
+
+        private void PNRList_DataError_1(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            e.ThrowException = false;
+
+            
+            Console.WriteLine("DataGridView Error: " + e.Exception.Message);
         }
     }
 }
